@@ -1,0 +1,11 @@
+language: go
+
+go:
+    - 1.10.3
+    - master
+
+before_install:
+    - go get -u github.com/golang/lint/golint
+
+script:
+    - golint -set_exit_status
