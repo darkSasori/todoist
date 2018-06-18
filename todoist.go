@@ -24,7 +24,6 @@ func makeRequest(method, endpoint string, data interface{}) (*http.Response, err
 		body = bytes.NewBuffer(json)
 	}
 
-	fmt.Println(url)
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {
 		return nil, err

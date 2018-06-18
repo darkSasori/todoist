@@ -28,6 +28,13 @@ func decodeProject(body io.ReadCloser) (Project, error) {
 }
 
 // ListProject return all projects
+// Examples:
+//		todoist.Token = "your token"
+//		projects, err := todoist.ListProject()
+//		if err != nil {
+//			panic(err)
+//		}
+//		fmt.Println(projects)
 func ListProject() ([]Project, error) {
 	res, err := makeRequest(http.MethodGet, "projects", nil)
 	if err != nil {
