@@ -28,6 +28,14 @@ func decodeProject(body io.ReadCloser) (Project, error) {
 }
 
 // ListProject return all projects
+//
+// Example:
+//		todoist.Token = "your token"
+//		projects, err := todoist.ListProject()
+//		if err != nil {
+//			panic(err)
+//		}
+//		fmt.Println(projects)
 func ListProject() ([]Project, error) {
 	res, err := makeRequest(http.MethodGet, "projects", nil)
 	if err != nil {
@@ -46,6 +54,14 @@ func ListProject() ([]Project, error) {
 }
 
 // GetProject return a project by id
+//
+// Example:
+//		todoist.Token = "your token"
+//		project, err := todoist.GetProject(1)
+//		if err != nil {
+//			panic(err)
+//		}
+//		fmt.Println(project)
 func GetProject(id int) (Project, error) {
 	path := fmt.Sprintf("projects/%d", id)
 	res, err := makeRequest(http.MethodGet, path, nil)
@@ -57,6 +73,14 @@ func GetProject(id int) (Project, error) {
 }
 
 // CreateProject create a new project with a name
+//
+// Example:
+//		todoist.Token = "your token"
+//		project, err := todoist.CreateProject("New Project")
+//		if err != nil {
+//			panic(err)
+//		}
+//		fmt.Println(project)
 func CreateProject(name string) (Project, error) {
 	project := struct {
 		Name string `json:"name"`
@@ -73,6 +97,17 @@ func CreateProject(name string) (Project, error) {
 }
 
 // Delete project
+//
+// Example:
+//		todoist.Token = "your token"
+//		project, err := todoist.GetProject(1)
+//		if err != nil {
+//			panic(err)
+//		}
+//		err = project.Delete()
+//		if err != nil {
+//			panic(err)
+//		}
 func (p Project) Delete() error {
 	path := fmt.Sprintf("projects/%d", p.ID)
 	_, err := makeRequest(http.MethodDelete, path, nil)
@@ -84,6 +119,19 @@ func (p Project) Delete() error {
 }
 
 // Update project
+//
+// Example:
+//		todoist.Token = "your token"
+//		project, err := todoist.GetProject(1)
+//		if err != nil {
+//			panic(err)
+//		}
+//		project.Name = "updated"
+//		err = project.Update()
+//		if err != nil {
+//			panic(err)
+//		}
+//		fmt.Println(project)
 func (p Project) Update() error {
 	path := fmt.Sprintf("projects/%d", p.ID)
 	project := struct {
