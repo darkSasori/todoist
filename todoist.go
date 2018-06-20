@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strings"
+	"time"
 )
 
 // Token save the personal token from todoist
@@ -52,4 +54,25 @@ func makeRequest(method, endpoint string, data interface{}) (*http.Response, err
 	}
 
 	return res, nil
+}
+
+const ctLayout = "2006-01-02T15:04:05+00:00"
+
+type CustomTime struct {
+	time.Time
+}
+
+func (ct *CustomTime) UnmarshalJSON(b []byte) (err error) {
+	s := strings.Trim(string(b), "\"")
+	if s == "null" {
+		ct.Time = time.Time{}
+		return
+	}
+
+	ct.Time, err = time.Parse(ctLayout, s)
+	return err
+}
+
+func (ct *CustomTime) MarshalJSON() ([]byte, error) {
+	return []byte(`"` + ct.Time.Format(ctLayout) + `"`), nil
 }
