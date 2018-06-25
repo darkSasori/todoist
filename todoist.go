@@ -58,10 +58,12 @@ func makeRequest(method, endpoint string, data interface{}) (*http.Response, err
 
 const ctLayout = "2006-01-02T15:04:05+00:00"
 
+// CustomTime had a custom json date format
 type CustomTime struct {
 	time.Time
 }
 
+// UnmarshalJSON convert from []byte to CustomTime
 func (ct *CustomTime) UnmarshalJSON(b []byte) (err error) {
 	s := strings.Trim(string(b), "\"")
 	if s == "null" {
@@ -73,6 +75,71 @@ func (ct *CustomTime) UnmarshalJSON(b []byte) (err error) {
 	return err
 }
 
-func (ct *CustomTime) MarshalJSON() ([]byte, error) {
+// MarshalJSON convert CustomTime to []byte
+func (ct CustomTime) MarshalJSON() ([]byte, error) {
+	if ct.Time.IsZero() {
+		return nil, nil
+	}
 	return []byte(`"` + ct.Time.Format(ctLayout) + `"`), nil
+}
+
+type taskSave struct {
+	Content     string     `json:"content"`
+	ProjectID   int        `json:"project_id,omitempty"`
+	Order       int        `json:"order,omitempty"`
+	LabelIDs    []int      `json:"label_ids,omitempty"`
+	Priority    int        `json:"priority,omitempty"`
+	DueString   string     `json:"due_string,omitempty"`
+	DueDateTime CustomTime `json:"due_datetime,omitempty"`
+	DueLang     string     `json:"due_lang,omitempty"`
+}
+
+func (ts taskSave) MarshalJSON() ([]byte, error) {
+	buffer := bytes.NewBufferString("{")
+
+	if ts.Content == "" {
+		return nil, fmt.Errorf("Content is empty")
+	}
+	buffer.WriteString(fmt.Sprintf("\"content\":\"%s\"", ts.Content))
+
+	if ts.ProjectID != 0 {
+		buffer.WriteString(fmt.Sprintf(",\"project_id\":%d", ts.ProjectID))
+	}
+
+	if ts.Order != 0 {
+		buffer.WriteString(fmt.Sprintf(",\"order\":%d", ts.Order))
+	}
+
+	if !ts.DueDateTime.IsZero() {
+		buffer.WriteString(",\"due_datetime\":")
+		json, err := json.Marshal(ts.DueDateTime)
+		if err != nil {
+			return nil, err
+		}
+		buffer.Write(json)
+	}
+
+	if len(ts.LabelIDs) != 0 {
+		buffer.WriteString(",\"label_ids\":")
+		json, err := json.Marshal(ts.LabelIDs)
+		if err != nil {
+			return nil, err
+		}
+		buffer.Write(json)
+	}
+
+	if ts.Priority != 0 {
+		buffer.WriteString(fmt.Sprintf(",\"priority\":%d", ts.Priority))
+	}
+
+	if ts.DueString != "" {
+		buffer.WriteString(fmt.Sprintf(",\"due_string\":\"%s\"", ts.DueString))
+	}
+
+	if ts.DueLang != "" {
+		buffer.WriteString(fmt.Sprintf(",\"due_lang\":\"%s\"", ts.DueLang))
+	}
+
+	buffer.WriteString("}")
+	return buffer.Bytes(), nil
 }

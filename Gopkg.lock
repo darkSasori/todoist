@@ -2,6 +2,12 @@
 
 
 [[projects]]
+  branch = "master"
+  name = "github.com/darkSasori/todoist"
+  packages = ["."]
+  revision = "ab3a9f0b9d551ab4e57f1caae9bb20d5aa51ec10"
+
+[[projects]]
   branch = "v1"
   name = "gopkg.in/jarcoal/httpmock.v1"
   packages = ["."]
@@ -10,6 +16,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "5916f64d62458d6916399b6202759c3aec017d5f3f6a2879d4bad73566eeec21"
+  inputs-digest = "4d0d4d6dd7b4141be119cb48281ea7c10f05d3037c0e4ac49560cf4af21917a7"
   solver-name = "gps-cdcl"
   solver-version = 1

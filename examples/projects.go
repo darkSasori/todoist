@@ -41,4 +41,6 @@ func main() {
 	if err := project.Delete(); err != nil {
 		panic(err)
 	}
+
+	fmt.Println("End Project")
 }
