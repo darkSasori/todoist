@@ -8,8 +8,12 @@ go:
     - master
 
 before_install:
+    - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
     - go get -u github.com/golang/lint/golint
     - go get gopkg.in/jarcoal/httpmock.v1
+
+install:
+  - dep ensure
 
 script:
     - golint -set_exit_status
