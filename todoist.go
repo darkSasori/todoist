@@ -68,7 +68,7 @@ func (ct *CustomTime) UnmarshalJSON(b []byte) (err error) {
 	s := strings.Trim(string(b), "\"")
 	if s == "null" {
 		ct.Time = time.Time{}
-		return
+		return nil
 	}
 
 	ct.Time, err = time.Parse(ctLayout, s)
@@ -78,7 +78,7 @@ func (ct *CustomTime) UnmarshalJSON(b []byte) (err error) {
 // MarshalJSON convert CustomTime to []byte
 func (ct CustomTime) MarshalJSON() ([]byte, error) {
 	if ct.Time.IsZero() {
-		return nil, nil
+		return []byte("null"), nil
 	}
 	return []byte(`"` + ct.Time.Format(ctLayout) + `"`), nil
 }

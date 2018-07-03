@@ -4,22 +4,16 @@ notifications:
   email: false
 
 go:
-  - 1.10.3
-  - master
+    - "1.10.3"
+    - master
 
 before_install:
-  - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-  - go get -u github.com/golang/lint/golint
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
+    - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+    - go get -u github.com/golang/lint/golint
 
 install:
-  - dep ensure -vendor-only
+  - dep ensure
 
 script:
-  - golint -set_exit_status
-  - go test -v -coverprofile=c.out
-
-after_script:
-  - ./cc-test-reporter after-build --coverage-input-type gocov
+    - golint -set_exit_status
+    - go test -v
