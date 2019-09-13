@@ -1,7 +1,0 @@
-github.com/darkSasori/todoist v0.0.0-20180625015933-ab3a9f0b9d55 h1:nz1Xu4zSP8Lxyy8eZNxixNEKKz2klQjNwNEIg1Tby7g=
-github.com/darkSasori/todoist v0.0.0-20180625015933-ab3a9f0b9d55/go.mod h1:dD/81kphWGY78UVdEu2sqkrUMYfvtdKAMaACFYHGkfU=
-github.com/darkSasori/todoist v0.0.0-20180703032645-ec6b38b374ab h1:T9EEtA6FSJMVypkNlKjrRo04u1j5Tk+gghymflyivDw=
-github.com/darkSasori/todoist v0.0.0-20180703032645-ec6b38b374ab/go.mod h1:dD/81kphWGY78UVdEu2sqkrUMYfvtdKAMaACFYHGkfU=
-github.com/wtfutil/todoist v0.0.0-20180625015933-ab3a9f0b9d55/go.mod h1:YuuGLJSsTK6DGBD5Zaf3J8LSMfpEC2WtzYPey3XVOdI=
-gopkg.in/jarcoal/httpmock.v1 v1.0.0-20180615191036-16f9a43967d6 h1:Y8fBSgc6mpy2zJoC3x4l5XAn2x9QJA9+EqmNAYU1Bsw=
-gopkg.in/jarcoal/httpmock.v1 v1.0.0-20180615191036-16f9a43967d6/go.mod h1:d3R+NllX3X5e0zlG1Rful3uLvsGC/Q3OHut5464DEQw=
