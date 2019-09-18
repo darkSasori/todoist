@@ -24,7 +24,7 @@ func TestQueryParam(t *testing.T) {
 		"param2": "param2",
 	}
 	if qp.String() != "?param1=param1&param2=param2" {
-		t.Errorf("Expected '?param1=param1' != '%s'", qp)
+		t.Errorf("Expected '?param1=param1&param2=param2' != '%s'", qp)
 	}
 }
 
