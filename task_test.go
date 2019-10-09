@@ -160,3 +160,15 @@ func TestTask(t *testing.T) {
 		t.Error(err)
 	}
 }
+
+
+func TestDecodeTask(t *testing.T) {
+	taskData := `{"id": 3408210133,"project_id": 2217869113,"order": 3,"content": "Therapy","completed": false,"label_ids": [],"priority": 1,"comment_count": 0,"created": "2019-09-21T06:06:08Z","due": {"recurring": true,"string": "every monday at 10pm","date": "2019-10-07","datetime": "2019-10-07T14:00:00Z","timezone": "Asia/Kuala_Lumpur"}}`
+	bytes := []byte(taskData)
+	var task Task
+	err := json.Unmarshal(bytes, &task)
+
+	if err != nil {
+		t.Error(err)
+	}
+}
