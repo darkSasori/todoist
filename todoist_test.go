@@ -2,11 +2,10 @@ package todoist
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"testing"
+	"fmt"
 	"time"
-
 	httpmock "gopkg.in/jarcoal/httpmock.v1"
 )
 
@@ -60,31 +59,6 @@ func TestMakeRequest(t *testing.T) {
 	}
 }
 
-func TestCustomTime(t *testing.T) {
-	var time CustomTime
-	b, _ := time.MarshalJSON()
-	if string(b) != "null" {
-		t.Errorf("Expected 'null' != '%s'", string(b))
-	}
-
-	time.UnmarshalJSON([]byte("null"))
-	if !time.IsZero() {
-		t.Errorf("Expected time is zero")
-	}
-
-	if err := time.UnmarshalJSON([]byte("2018-07-01T01:00:00+00:00")); err != nil {
-		t.Error(err)
-	}
-
-	b, err := time.MarshalJSON()
-	if err != nil {
-		t.Error(err)
-	}
-	if string(b) != "\"2018-07-01T01:00:00+00:00\"" {
-		t.Errorf("Expected '2018-07-01T01:00:00+00:00' != '%s'", string(b))
-	}
-}
-
 func TestTaskSaveMarshalJSON(t *testing.T) {
 	var ts taskSave
 	_, err := ts.MarshalJSON()
@@ -134,7 +108,7 @@ func TestTaskSaveMarshalJSON(t *testing.T) {
 		t.Errorf("Expected '{\"content\":\"test\",\"label_ids\":[1,2]}' != '%s'", string(b))
 	}
 
-	now := CustomTime{time.Now()}
+	now := time.Now()
 	ts = taskSave{Content: "test", DueDateTime: now}
 	s, _ := now.MarshalJSON()
 	b, _ = ts.MarshalJSON()
